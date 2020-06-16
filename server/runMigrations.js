@@ -1,11 +1,17 @@
 require('dotenv').config();
 
-console.log('DB: ', process.env.PGDATABASE);
-
-const migrationsFolder = 'db/migrations';
+const migrationsFolder = 'db/sql/migrations';
 const fs = require('fs');
 const runSql = require('./db/runSql');
 
-fs.readdirSync(migrationsFolder).forEach(file => {
-  runSql(`migrations/${file}`);
-});
+const files = fs.readdirSync(migrationsFolder);
+
+async function runMigrations () {
+  for (const file of files) {
+    const fileWithoutExtension = file.split('.sql')[0];
+
+    await runSql(`migrations/${fileWithoutExtension}`);
+  }
+}
+
+runMigrations();

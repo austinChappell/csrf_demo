@@ -16,6 +16,7 @@
     "uuid": "^8.1.0"
   },
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:migrate": "node runMigrations.js"
   }
 }
