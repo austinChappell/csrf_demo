@@ -44,6 +44,8 @@ function setTokens(user, res) {
     token,
   } = createTokens(user);
 
+  console.log('setting cookies');
+
   res.cookie('csrf_token', csrfToken);
   res.cookie('token', token);
 

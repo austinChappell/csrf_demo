@@ -26,5 +26,9 @@ export async function apiRequest({
     }
   );
 
+  const csrfToken = response.headers['x-csrf-token'];
+
+  Cookie.set('csrf_token', csrfToken);
+
   return response;
 }

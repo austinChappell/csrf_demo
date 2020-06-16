@@ -57,12 +57,18 @@ function App() {
   }
 
   useEffect(() => {
-    getTodos();
-  }, []);
+    if (user) {
+      getTodos();
+    }
+  }, [user?.id]);
 
   useEffect(() => {
     getMe();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setTodos([]);
+  }, [user?.id]);
 
   if (isGettingUser) {
     return <div>Loading...</div>

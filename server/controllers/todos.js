@@ -1,46 +1,19 @@
+const runSql = require('../db/runSql');
+const setUserMiddleware = require('../middlewares/setUserFromJWT');
+const csrfMiddleware = require('../middlewares/csrf');
+
 const router = require('express').Router();
 
-const todos = [];
+router.post('/', setUserMiddleware, csrfMiddleware, async (req, res) => {
+  const rows = await runSql('add_todo', [req.userId, req.body.label]);
+  const [todo] = rows;
 
-const goodCookie = 'this_is_a_good_cookie';
-
-router.post('/', (req, res) => {
-  const id = Math.floor(Math.random() * 1000000);
-
-  const cookies = req.cookies;
-
-  const hasCookie = cookies.csrf_token === goodCookie;
-  const hasHeader = req.headers['x-csrf-token'] === goodCookie;
-
-  console.log({cookies})
-
-  console.log({
-    hasCookie,
-    hasHeader,
-  });
-
-  if (hasCookie && hasHeader) {
-    todos.push({
-      ...req.body,
-      id,
-    });
-  
-    res.json({
-      ...req.body,
-      id,
-    })
-  } else {
-    res.status(401).json({ error: 'invalid cookie' });
-  }
-
+  res.json(todo);
 })
 
-router.get('/', (req, res) => {
-  res.cookie(
-    'csrf_token',
-    goodCookie,
-  );
-  res.setHeader('x-csrf-token', goodCookie);
+router.get('/', setUserMiddleware, async (req, res) => {
+  const todos = await runSql('get_todos', [req.userId]);
+  
   res.json(todos);
 });
 

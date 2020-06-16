@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Cookie from 'js-cookie';
 import { apiRequest } from '../api';
 import { AuthFormProps } from './AuthForm';
 
@@ -17,9 +16,6 @@ const Login: React.FC<AuthFormProps> = (props) => {
     })
 
     const data = response.data;
-    const csrfToken = response.headers['x-csrf-token'];
-
-    Cookie.set('csrf_token', csrfToken);
 
     props.onSuccess(data);
   }
