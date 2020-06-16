@@ -25,7 +25,7 @@ function App() {
   const getMe = async () => {
     try {
       const response = await apiRequest({
-        endpoint: '/me',
+        endpoint: '/auth/me',
       });
   
       const { data } = response;

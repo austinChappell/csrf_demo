@@ -12,7 +12,7 @@ const Login: React.FC<AuthFormProps> = (props) => {
     
     const response = await apiRequest({
       data: { email, password },
-      endpoint: '/login',
+      endpoint: '/auth/login',
       method: 'POST',
     })
 

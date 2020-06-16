@@ -11,7 +11,7 @@ interface Props {
 const UserNav: React.FC<Props> = (props) => {
   const handleLogout = async () => {
     await apiRequest({
-      endpoint: '/logout',
+      endpoint: '/auth/logout',
       method: 'POST',
     });
     Cookie.remove('csrf_token');
