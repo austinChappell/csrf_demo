@@ -17,6 +17,9 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "db:migrate": "node runMigrations.js"
+    "db:create": "createdb csrf_demo",
+    "db:drop": "dropdb csrf_demo",
+    "db:migrate": "node runMigrations.js",
+    "db:reset": "yarn db:drop && yarn db:create && yarn db:migrate"
   }
 }
