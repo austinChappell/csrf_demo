@@ -9,7 +9,7 @@ router.post('/', setUserMiddleware, csrfMiddleware, async (req, res) => {
   const [todo] = rows;
 
   res.json(todo);
-})
+});
 
 router.get('/', setUserMiddleware, async (req, res) => {
   const todos = await runSql('get_todos', [req.userId]);
