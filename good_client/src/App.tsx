@@ -8,7 +8,7 @@ function App() {
   const [todos, setTodos] = useState<{ id: number; label: string }[]>([]);
   
   const getTodos = async () => {
-    const response = await fetch('http://localhost:4000/todos', { credentials: 'include' });
+    const response = await fetch('http://api.good.com:4000/todos', { credentials: 'include' });
     const data = await response.json();
 
     setTodos(data);
@@ -16,7 +16,7 @@ function App() {
 
   const addTodo = async () => {
     const response = await fetch(
-      'http://localhost:4000/todos',
+      'http://api.good.com:4000/todos',
       {
         body: JSON.stringify({
           label: value,

@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(cors({
   allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
   credentials: true,
-  origin: 'http://localhost:3000'
+  origin: 'http://www.good.com:3000'
 }));
 
 app.post('/todos', (req, res) => {
@@ -25,6 +25,13 @@ app.post('/todos', (req, res) => {
 
   const hasCookie = cookies.csrf_cookie === goodCookie;
   const hasHeader = req.headers['x-csrf-token'] === goodCookie;
+
+  console.log({cookies})
+
+  console.log({
+    hasCookie,
+    hasHeader,
+  });
 
   if (hasCookie && hasHeader) {
     todos.push({
@@ -43,7 +50,12 @@ app.post('/todos', (req, res) => {
 })
 
 app.get('/todos', (req, res) => {
-  res.cookie('csrf_cookie', goodCookie);
+  console.log('setting cookie')
+  res.cookie(
+    'csrf_cookie',
+    goodCookie,
+  );
+  res.setHeader('x-csrf-token', goodCookie);
   res.json(todos);
 })
 
