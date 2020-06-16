@@ -44,8 +44,6 @@ function setTokens(user, res) {
     token,
   } = createTokens(user);
 
-  console.log('setting cookies');
-
   res.cookie('csrf_token', csrfToken);
   res.cookie('token', token);
 
@@ -85,6 +83,10 @@ router.post('/login', async (req, res) => {
 
   const rows = await runSql('get_user_by_email', [email]);
   const [user] = rows;
+
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
 
   const isPasswordValid = checkPassword(req.body.password, user.password);
 

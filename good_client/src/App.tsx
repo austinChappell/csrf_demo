@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookie from 'js-cookie';
 
 import './App.css';
 import AuthForm from './components/AuthForm';
@@ -50,6 +51,14 @@ function App() {
     getTodos();
   }
 
+  const handleLogout = async () => {
+    await apiRequest({
+      endpoint: '/auth/logout',
+      method: 'POST',
+    });
+    Cookie.remove('csrf_token');
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -69,6 +78,12 @@ function App() {
   useEffect(() => {
     setTodos([]);
   }, [user?.id]);
+
+  useEffect(() => {
+    if (!isGettingUser && !user) {
+      handleLogout();
+    }
+  }, [isGettingUser]);
 
   if (isGettingUser) {
     return <div>Loading...</div>
