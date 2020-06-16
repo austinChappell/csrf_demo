@@ -7,6 +7,10 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
   }
 }
