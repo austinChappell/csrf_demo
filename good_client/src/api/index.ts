@@ -17,7 +17,7 @@ export async function apiRequest({
   }
 
   const response = await axios(
-    `http://api.good.com:4000${endpoint}`,
+    `http://www.api.com:4000${endpoint}`,
     {
       data,
       headers,
@@ -28,7 +28,9 @@ export async function apiRequest({
 
   const csrfToken = response.headers['x-csrf-token'];
 
-  Cookie.set('csrf_token', csrfToken);
+  if (csrfToken) {
+    Cookie.set('csrf_token', csrfToken);
+  }
 
   return response;
 }

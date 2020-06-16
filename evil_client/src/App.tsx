@@ -5,7 +5,7 @@ function App() {
   const [todos, setTodos] = useState<{ id: number; label: string }[]>([]);
 
   const getTodos = async () => {
-    const response = await fetch('http://api.good.com:4000/todos');
+    const response = await fetch('http://www.api.com:4000/todos');
     const data = await response.json();
 
     setTodos(data);
@@ -28,7 +28,7 @@ function App() {
         </button>
 
         <form
-          action="http://api.good.com:4000/todos"
+          action="http://www.api.com:4000/todos"
           method="POST"
           style={{ visibility: 'hidden' }}
         >
