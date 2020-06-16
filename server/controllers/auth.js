@@ -44,9 +44,7 @@ function setTokens(user, res) {
     token,
   } = createTokens(user);
 
-  res.cookie('csrf_token', csrfToken);
   res.cookie('token', token);
-
   res.setHeader('x-csrf-token', csrfToken);
 
   delete user.password;
